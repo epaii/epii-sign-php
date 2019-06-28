@@ -1,0 +1,19 @@
+{
+  "name": "epii/sign",
+  "description": "接口加密、验证",
+  "authors": [
+    {
+      "name": "MrRen Epii",
+      "email": "543169072@qq.com"
+    }
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "epii\\sign\\": "src/"
+    }
+  }
+}
