@@ -14,7 +14,7 @@ class sign
     {
 
         if (is_array($data)) {
-            asort($data);
+            ksort($data);
             $string = "";
             foreach ($data as $key => $value) {
                 $string .= $key . "=" . $value . "&";
