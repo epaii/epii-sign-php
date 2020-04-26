@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: mrren
@@ -10,7 +11,7 @@ namespace epii\sign;
 
 class sign
 {
-    public static function encode(&$data, $secret_key)
+    public static function encode(&$data, $secret_key, $sign_key = "sign")
     {
 
         if (is_array($data)) {
@@ -19,33 +20,29 @@ class sign
             foreach ($data as $key => $value) {
                 $string .= $key . "=" . $value . "&";
             }
-
-            $data["sign"] = md5($string . $secret_key);
+            if ($sign_key)
+                $data[$sign_key] = md5($string . $secret_key);
             return $data["sign"];
-
         }
         return null;
     }
 
 
-    public static function check($data, $secret_key)
+    public static function check($data, $secret_key, $sign_key = "sign")
     {
 
         if (is_array($data)) {
-            if (!isset($data["sign"])) {
+            if (!isset($data[$sign_key])) {
                 return false;
             }
-            $sign = $data["sign"];
-            unset($data["sign"]);
+            $sign = $data[$sign_key];
+            unset($data[$sign_key]);
 
             self::encode($data, $secret_key);
-            if ($data["sign"] == $sign) {
+            if ($data[$sign_key] == $sign) {
                 return true;
             }
-
-
         }
         return false;
     }
-
 }
