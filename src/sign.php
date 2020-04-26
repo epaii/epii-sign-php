@@ -11,7 +11,7 @@ namespace epii\sign;
 
 class sign
 {
-    public static function encode(&$data, $secret_key, $sign_key = "sign")
+    public static function encode(&$data, $secret_key, $return_array = false, $sign_key = "sign")
     {
 
         if (is_array($data)) {
@@ -22,6 +22,9 @@ class sign
             }
             if ($sign_key)
                 $data[$sign_key] = md5($string . $secret_key);
+            if ($return_array) {
+                return $data;
+            }
             return $data["sign"];
         }
         return null;
